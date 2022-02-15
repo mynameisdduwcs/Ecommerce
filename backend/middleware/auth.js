@@ -7,7 +7,7 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   const { token } = req.cookies;
 
   if (!token) {
-    return next(new ErrorHander("Please Login to access this resource", 401));
+    return next(new ErrorHander("Vui lòng đăng nhập để truy cập", 401));
   }
 
   const decodedData = jwt.verify(token, process.env.JWT_SECRET);
@@ -22,7 +22,7 @@ exports.authorizeRoles = (...roles) => {
     if (!roles.includes(req.user.role)) {
       return next(
         new ErrorHander(
-          `Role: ${req.user.role} không được phép truy cập `,
+          `Vai trò: ${req.user.role} không được phép truy cập `,
           403
         )
       );
